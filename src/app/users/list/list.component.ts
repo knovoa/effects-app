@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { User } from 'src/app/models/user.model';
-import { UserService } from 'src/app/services/user.service';
+import { load } from 'src/app/store/actions/users.actions';
+import { AppState } from 'src/app/store/app.reducers';
 
 @Component({
   selector: 'app-users-list',
@@ -11,11 +13,13 @@ export class ListComponent implements OnInit {
 
   users: User[] = [];
 
-  constructor(private userService: UserService) { }
+  constructor(private store: Store<AppState>) { }
 
   ngOnInit(): void {
-    this.userService.getUsers().subscribe(users => {
-      this.users = users;
-    })
+    this.store.dispatch(load());
+
+    this.store.select('users').subscribe((users) => {
+      this.users = users.list;
+    });
   }
 }
