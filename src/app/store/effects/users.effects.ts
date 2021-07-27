@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { EMPTY } from "rxjs";
+import { EMPTY, of } from "rxjs";
 import { catchError, map, mergeMap } from "rxjs/operators";
 import { UserService } from "src/app/services/user.service";
 import * as usersActions from "../actions/users.actions";
@@ -17,9 +17,9 @@ export class UsersEffects {
     ofType(usersActions.load),
     mergeMap(() => this.userService.getUsers()
       .pipe(
-        map(list => usersActions.loadSuccess({list})),
-        catchError(() => EMPTY)
-      ))
+        map(users => usersActions.loadSuccess({users})),
+        catchError(error => of(usersActions.loadError({error})))
+      )
     )
-  );
+  ));
 }

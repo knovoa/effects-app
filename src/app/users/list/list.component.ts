@@ -12,6 +12,8 @@ import { AppState } from 'src/app/store/app.reducers';
 export class ListComponent implements OnInit {
 
   users: User[] = [];
+  loading: boolean = false;
+  error: any;
 
   constructor(private store: Store<AppState>) { }
 
@@ -20,6 +22,8 @@ export class ListComponent implements OnInit {
 
     this.store.select('users').subscribe((users) => {
       this.users = users.list;
+      this.loading = users.loading;
+      this.error = users.error;
     });
   }
 }

@@ -5,9 +5,9 @@ export const load = createAction('[Users] Load');
 
 export const loadSuccess = createAction(
   '[Users] Load Success',
-  props<{ list: User[] }>()
+  props<{ users: User[] }>()
 );
 export const loadError = createAction(
   '[Users] Load Error',
-  props<{ payload: any }>()
+  props<{ error: any }>()
 );
