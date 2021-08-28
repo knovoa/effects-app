@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ListComponent } from './list/list.component';
 import { DetailComponent } from './detail/detail.component';
 
+import { GoogleChartsModule } from 'angular-google-charts';
 
 
 @NgModule({
@@ -11,7 +12,10 @@ import { DetailComponent } from './detail/detail.component';
     DetailComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    GoogleChartsModule.forRoot({
+      mapsApiKey: 'AIzaSyAJV560z8d7XgrM73DID5Odd3op2Uq-oS8'
+    })
   ],
   exports: [
     ListComponent,

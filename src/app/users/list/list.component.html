@@ -28,3 +28,12 @@
     </div>
   </div>
 </div>
+
+<br />
+
+<google-chart style="width: 100%;"
+  [type]="myType"
+  [data]="myData"
+  [options]="myOptions"
+  (select)="onSelect($event)">
+</google-chart>
