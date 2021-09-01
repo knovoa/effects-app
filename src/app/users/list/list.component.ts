@@ -92,21 +92,6 @@ export class ListComponent implements OnInit {
     let height = 750;
     projection.rotate([60, 40]).fitExtent([ [ 0, 0 ], [ width, height ] ], geojson);
 
-    let cities = [
-      {
-        lng: -12.30200325453761,
-        lat: -76.57102540839436
-      },
-      {
-        lng: -4.269263755674196,
-        lat: -74.47440370503764
-      },
-      {
-        lng: -17.512823050613296,
-        lat: -70.19380106068432
-      }
-    ];
-
     svg
       .attr('width', width)
       .attr('height', height)
@@ -127,16 +112,7 @@ export class ListComponent implements OnInit {
         cityName = i.properties.NOMBDEP;
       });
 
-    svg
-      .selectAll("g")
-      .data(cities)
-      .enter()
-      .append("g")
-      .attr("transform", function(d) {
-        return "translate(" + projection([d.lng, d.lat]) + ")";
-      })
-      .append("circle")
-      .attr("r", 1)
+    // TODO: Set markers
   }
 
   demo() {
