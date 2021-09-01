@@ -2,3 +2,15 @@
 path[fill='#123456'] {
     display: none !important;
 }
+
+.country {
+    fill: #b0d0ab;
+    stroke: #6cb0e0;
+    stroke-width: 0.5px;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.selected {
+    fill: skyblue;
+}

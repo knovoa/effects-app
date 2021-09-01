@@ -1,3 +1,22 @@
+<!--
+<google-chart style="width: 100%;"
+  [type]="myType"
+  [data]="myData"
+  [options]="myOptions"
+  (select)="onSelect($event)">
+</google-chart>
+-->
+
+<div class="row row-cols-2">
+  <div class="col">
+    <button class="btn btn-primary" (click)="demo()">Click Me</button>    
+  </div>
+  <div class="col" style="text-align: center;">
+    <svg></svg>
+  </div>
+</div>
+
+<!--
 <div class="alert alert-info text-center" role="alert" *ngIf="loading">
   <h4 class="alert-heading">Loading...</h4>
   <p>
@@ -28,12 +47,4 @@
     </div>
   </div>
 </div>
-
-<br />
-
-<google-chart style="width: 100%;"
-  [type]="myType"
-  [data]="myData"
-  [options]="myOptions"
-  (select)="onSelect($event)">
-</google-chart>
+ -->
