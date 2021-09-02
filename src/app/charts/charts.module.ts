@@ -20,11 +20,6 @@ import { GoogleChartsModule } from 'angular-google-charts';
     CommonModule,
     GoogleChartsModule
   ],
-  exports: [
-    ChartsComponent,
-    LineComponent,
-    BarComponent,
-    MapComponent
-  ]
+  exports: []
 })
 export class ChartsModule { }
