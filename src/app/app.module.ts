@@ -13,6 +13,7 @@ import { effects } from './store/effects';
 import { appReducers } from './store/app.reducers';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from 'src/environments/environment';
+import { ChartsModule } from './charts/charts.module';
 
 
 @NgModule({
@@ -25,13 +26,13 @@ import { environment } from 'src/environments/environment';
     HttpClientModule,
     SharedModule,
     UsersModule,
+    ChartsModule,
     StoreModule.forRoot(appReducers),
     EffectsModule.forRoot(effects),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production
     }),
-
   ],
   providers: [],
   bootstrap: [AppComponent]
