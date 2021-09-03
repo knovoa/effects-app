@@ -3,8 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import * as d3 from 'd3';
 import * as topojson from 'topojson-client';
 
-let cityName: '';
-
 @Component({
   selector: 'app-charts-map',
   templateUrl: './map.component.html',
@@ -18,42 +16,54 @@ export class MapComponent implements OnInit {
     this.draw();
   }
 
-  async draw() {
-    const topology: any = await d3.json('/assets/peru.json');
-    const geojson: any = topojson.feature(topology, topology.objects.departments)
-    const svg = d3.select('svg').attr('id', 'map')
+  draw() {
+    let width = 750;
+    let height = 750;
+
+    const svg = d3.select('svg').attr('id', 'map').attr("width", width).attr("height", height);
     const projection = d3.geoAlbers()
     const path: any = d3.geoPath().projection(projection)
 
-    let width = 750;
-    let height = 750;
-    projection.rotate([60, 40]).fitExtent([ [ 0, 0 ], [ width, height ] ], geojson);
+    d3.json("/assets/peru.json").then(function(json: any) {
+      const geojson: any = topojson.feature(json, json.objects.departments);
+      projection.rotate([60, 40]).fitExtent([[0, 0], [width, height]], geojson);
 
-    svg
-      .attr('width', width)
-      .attr('height', height)
-      .selectAll('path')
-      .data(geojson.features)
-      .enter()
-      .append('path')
-      .attr('d', path)
-      .attr('fill', '#DCE1EA')
-      .attr('stroke', 'white')
-      .on('mouseover', function(d) {
-        d3.select(this).classed('selected', true);
-      })
-      .on('mouseout', function(d) {
-        d3.select(this).classed('selected', false);
-      })
-      .on('click', function(d,i: any) {
-        cityName = i.properties.NOMBDEP;
+      svg.selectAll("path")
+        .data(geojson.features)
+        .enter()
+        .append("path")
+        .attr("d", path)
+        .style("stroke", "#fff")
+        .style("stroke-width", 1.5)
+        .attr('fill', '#DCE1EA');
+      
+      d3.csv("/assets/markers.csv").then(function(data) {
+        
+        svg.selectAll("image")
+          .data(data)
+          .enter()
+          .append("image")
+          .attr('width', 14)
+          .attr('height', 14)
+          .attr("transform", ((d: any) => `translate(${projection([d.lon,d.lat])})`))
+          .attr("xlink:href",'/assets/vector.png')
+          .style("opacity", 1)
+          .style('cursor', 'pointer')
+          .on('click', function() {
+            d3.selectAll('image').attr("xlink:href",'/assets/dvector.png').attr('width', 14).attr('height', 14);
+            d3.select(this).attr("xlink:href",'/assets/marker.png').attr('height', 20);
+          });
+
+        svg.selectAll('text')
+          .data(data)
+          .enter()
+          .append('text') 
+          .attr("transform", ((d: any) => {
+            return `translate(${projection([d.lon - (d.place.length * 0.045),d.lat - 0.700])})`;
+          }))
+          .attr("font-size", "10")
+          .text((d: any) => d.place);
       });
-  }
-
-  demo() {
-    if (cityName === undefined) {
-      return;
-    }
-    alert('City: ' + cityName);
+    });
   }
 }

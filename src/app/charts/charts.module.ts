@@ -5,6 +5,7 @@ import { ChartsComponent } from "./charts.component";
 import { LineComponent } from './line/line.component';
 import { BarComponent } from './bar/bar.component';
 import { MapComponent } from "./map/map.component";
+import { HeatComponent } from "./heat/heat.component";
 
 import { GoogleChartsModule } from 'angular-google-charts';
 
@@ -14,7 +15,8 @@ import { GoogleChartsModule } from 'angular-google-charts';
     ChartsComponent,
     LineComponent,
     BarComponent,
-    MapComponent
+    MapComponent,
+    HeatComponent
   ],
   imports: [
     CommonModule,
